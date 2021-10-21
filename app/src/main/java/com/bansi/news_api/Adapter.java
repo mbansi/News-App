@@ -1,6 +1,7 @@
 package com.bansi.news_api;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,13 +46,28 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Articles a = articles.get(position);
+        final Articles a = articles.get(position);
         holder.title.setText(a.getTitle());
         holder.source.setText(a.getSource().getName());
-        holder.date.setText(dateTime(a.getPublishedAt()));
+        holder.date.setText("\u2022" + dateTime(a.getPublishedAt()));
 
         String imageURL = a.getUrlToImage();
+        String url = a.getUrl();
         Picasso.get().load(imageURL).into(holder.image);
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,DetailedActivity.class);
+                intent.putExtra("title",a.getTitle());
+                intent.putExtra("source",a.getSource().getName());
+                intent.putExtra("time","\u2022" + dateTime(a.getPublishedAt()));
+                intent.putExtra("description",a.getDescription());
+                intent.putExtra("imageUrl",a.getUrlToImage());
+                intent.putExtra("url",a.getUrl());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

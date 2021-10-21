@@ -7,6 +7,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bansi.news_api.model.Articles;
@@ -35,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.rvNewsList);
+
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         String country = "in";
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         retrieveJson(country,API_KEY);
+
+
     }
 
     public void retrieveJson(String country, String apiKey){
